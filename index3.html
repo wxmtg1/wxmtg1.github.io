@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Sample Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f5f5;
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER + NAVBAR */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem; /* ~50px height */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a {
+            padding-bottom: 0.15rem;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-color: #2563eb;
+        }
+
+        /* ⭐ FIXED SOFT BLUR STRIP UNDER NAVBAR */
+        .scroll-blur {
+            position: fixed;
+            top: 50px; /* navbar height */
+            left: 0;
+            width: 100%;
+            height: 125px;
+
+            /* Soft blur */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            /* Smooth fade-out at bottom */
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.25) 40%,
+                rgba(255, 255, 255, 0.10) 75%,
+                rgba(255, 255, 255, 0) 100%
+            );
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.45s ease;
+            z-index: 90;
+        }
+
+        .scroll-blur.visible {
+            opacity: 0.4;
+        }
+
+        main {
+            flex: 1;
+            padding-bottom: 3rem;
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1100px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 0.6rem 1.4rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #2563eb;
+            border-radius: 999px;
+            padding: 0.6rem 1.4rem;
+            font-weight: 500;
+            border: 1px solid #2563eb;
+            cursor: pointer;
+        }
+
+        .hero-image {
+            background: linear-gradient(135deg, #e0f2fe, #e5e7eb);
+            border-radius: 1rem;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4b5563;
+            font-size: 0.95rem;
+        }
+
+        /* CARDS */
+        .cards {
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* TUTORIALS */
+        .tutorials {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .tutorials-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .tutorials-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .tutorial-list {
+            list-style: disc;
+            padding-left: 1.5rem;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .tutorial-list li a {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .tutorial-list li a:hover {
+            color: #2563eb;
+        }
+
+        /* REVIEWS */
+        .reviews {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .reviews h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .review-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .review-card span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            background: #111827;
+            color: white;
+            padding: 4rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .contact-section input,
+        .contact-section textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .contact-section button {
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #111827;
+            color: #cbd5e1;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ⭐ FIXED SOFT BLUR STRIP -->
+    <div class="scroll-blur"></div>
+
+    <header>
+        <div class="nav">
+            <div class="logo">Studio Tutorials</div>
+            <nav class="nav-links">
+                <a href="../index.html"><strong>Home</strong></a>
+                <a href="#"><strong>Tutorials</strong></a>
+                <a href="#"><strong>Get Studio</strong></a>
+                <a href="#"><strong>About Us</strong></a>
+                <a href="login.html"><strong>Login</strong></a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>One Stop Studio Shop</h1>
+                <p>
+                    STOP! Using Roblox Studio's toolbox does have it's advantages but due to unsafe scripts that might have viruses hidden within, you're game is at risk. So Choose The Better Choice, Find Your Next Adventure With Us!
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary">Find Verified Tutorials</button>
+                    <button class="btn-secondary">Get In Touch</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://your-image-url-here.png" alt="Hero Image">
+            </div>
+        </section>
+
+        <!-- CARDS -->
+        <section class="cards">
+            <article class="card">
+                <h3>Card title one</h3>
+                <p>Brief description for the first feature or section of your site.</p>
+            </article>
+            <article class="card">
+                <h3>Card title two</h3>
+                <p>Another short description, mirroring the style of your design.</p>
+            </article>
+            <article class="card">
+                <h3>Card title three</h3>
+                <p>A final card to showcase one more feature or area of content.</p>
+            </article>
+            <article class="card">
+                <h3>Card title four</h3>
+                <p>A helpful feature to extend your layout and showcase more content.</p>
+            </article>
+        </section>
+
+        <!-- TUTORIALS -->
+        <section class="tutorials">
+            <div class="tutorials-card">
+                <h2>Recommended Tutorials</h2>
+                <ul class="tutorial-list">
+                    <li><a href="#">How to Script Safely in Roblox Studio</a></li>
+                    <li><a href="#">Building Efficient Worlds — Beginner to Advanced</a></li>
+                    <li><a href="#">Understanding ModuleScripts the Easy Way</a></li>
+                    <li><a href="#">Optimizing Your Game for Performance</a></li>
+                    <li><a href="#">Creating Secure Datastores</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- REVIEWS -->
+        <section class="reviews">
+            <h2>Vouches</h2>
+
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Studio Tutorials helped me avoid a virus‑filled model. Lifesaver."</p>
+                <span>— Alex</span>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★☆</div>
+                <p>"Clear, safe, and easy to follow. My game improved instantly."</p>
+                <span>— Jordan</span>
+            </div>
+
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Finally a place I can trust for Studio resources."</p>
+                <span>— Riley</span>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact-section">
+            <div class="contact-container">
+
+                <!-- FORM -->
+                <div>
+                    <h2>Message Us</h2>
+
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="7922b393-090b-44a4-959c-8320f749bc87">
+                        <input type="hidden" name="subject" value="New Contact Form Submission">
+
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+
+                        <button type="submit">SEND</button>
+                    </form>
+                </div>
+
+                <!-- CONTACT INFO -->
+                <div>
+                    <h2>Contact Info</h2>
+                    <p><strong>Call us on:</strong><br>+44 (0)114 430 0145</p><br>
+                    <p><strong>Email us:</strong><br>greent55@hwbcymru.net</p><br>
+                    <p><strong>Socials:</strong><br>Twitter • Instagram • Discord</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        © 2026 Studio Tutorials. All rights reserved.
+    </footer>
+
+    <!-- ⭐ BLUR STRIP SCROLL SCRIPT -->
+    <script>
+        const blur = document.querySelector(".scroll-blur");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 20) {
+                blur.classList.add("visible");
+            } else {
+                blur.classList.remove("visible");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
